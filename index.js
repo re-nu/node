@@ -8,7 +8,7 @@ dotenv.config();
 
 const app=express();
 
-const PORT=9000;
+const PORT=process.env.PORT; //heroku will auto assign available port
 
  app.use(express.json()) //every request inbody is json ,so its inbuild middleware
 
