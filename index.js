@@ -96,7 +96,7 @@ const PORT=process.env.PORT; //heroku will auto assign available port
     export const client=await createConnection(); //call the function and wii get client which we can use
 
 app.get("/",(request,response)=>{
-    response.send("hello😊!!!");
+    response.send("hello😊!!😊!");
 });
  
 app.use("/movies",moviesRouter)
