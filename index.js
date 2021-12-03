@@ -1,6 +1,6 @@
 // const express=require("express");  //import express if type:commonjs
 import express, { request, response }  from "express";  // import express if type:module
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import dotenv from 'dotenv';
 import { moviesRouter } from "./routes/movies.js";
 
@@ -101,6 +101,35 @@ app.get("/",(request,response)=>{
  
 app.use("/movies",moviesRouter)
 
-app.listen(PORT,()=>console.log("app i started in ",PORT));
+const reciepes=[
+    {name:"Biryani",
+     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCWMpeGxyNE1jVjX1UfyOBspCrcSvDu0bq4Q&usqp=CAU"
+   },
+    {name:"Pareen Masala",
+     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT06llP9dJomDH55rwKiJT6DMMfeJ2SzWScNA&usqp=CAU"
+   },
+    {name:"Tandoori",
+     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE20sYnAOsX0aczYC2eGGslSALVodro5U46w&usqp=CAU"
+   },
+    {name:"Parotha shwarma",
+     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa8qXYFXuPE6ccSW_nRjl3HMj4YNqR1PyDeQ&usqp=CAU"
+   },
+    {name:"Gobi monchurian",
+     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi_PTT8ughHlFC44SSdPXeKb--jOoop4dXkA&usqp=CAU"
+   }
+  ];
+
+  app.get("/recipes",async(request,response)=>{
+      const data=await client.db("b28wd").collection("recipes").find({}).toArray()
+      response.send(data);
+  })
+
+  app.post("/recipes",async(request,response)=>{
+      const data=request.body
+      const result=await client.db("b28wd").collection("recipes").insertMany(data);
+      response.send(data);
+  })
+
+app.listen(PORT,()=>console.log("app is started in ",PORT));
 
 
