@@ -11,7 +11,7 @@ const app=express();
 
 const PORT=process.env.PORT; //heroku will auto assign available port
 
-app.use(cors())
+app.use(cors());
  app.use(express.json()) //every request inbody is json ,so its inbuild middleware
 
 
