@@ -3,6 +3,7 @@ import express, { request, response }  from "express";  // import express if typ
 import { Db, MongoClient } from "mongodb";
 import dotenv from 'dotenv';
 import { moviesRouter } from "./routes/movies.js";
+import cors from 'cors'
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const app=express();
 
 const PORT=process.env.PORT; //heroku will auto assign available port
 
+app.use(cors())
  app.use(express.json()) //every request inbody is json ,so its inbuild middleware
 
 
