@@ -1,9 +1,10 @@
 // const express=require("express");  //import express if type:commonjs
 import express, { request, response }  from "express";  // import express if type:module
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import dotenv from 'dotenv';
 import { moviesRouter } from "./routes/movies.js";
 import cors from 'cors'
+import { ObjectID } from "bson";
 
 dotenv.config();
 
@@ -126,10 +127,24 @@ const reciepes=[
       response.send(data);
   })
 
+  // app.post("/recipes",async(request,response)=>{
+  //     const data=request.body
+  //     const result=await client.db("b28wd").collection("recipes").insertMany(data);
+  //     response.send(data);
+  // })
+
   app.post("/recipes",async(request,response)=>{
-      const data=request.body
-      const result=await client.db("b28wd").collection("recipes").insertMany(data);
-      response.send(data);
+    const data=request.body
+    const result=await client.db("b28wd").collection("recipes").insertOne(data);
+    response.send(result)
+  })
+
+  app.get("/recipes/:id",async(request,response)=>{
+    const{id}=request.params
+    console.log("id is:",id);
+    
+    const result=await client.db("b28wd").collection("recipes").findOne({ _id: ObjectID(id) })
+    response.send(result);
   })
 
 app.listen(PORT,()=>console.log("app is started in ",PORT));
