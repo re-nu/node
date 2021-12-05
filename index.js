@@ -154,6 +154,14 @@ const reciepes=[
     response.send(result);
   })
 
+  app.put("/recipes/:id",async(request,response)=>{
+    const{id}=request.params
+    const data=request.body
+
+    const result=await client.db("b28wd").collection("recipes").updateOne({_id:ObjectID(id)},{$set:data});
+    response.send(result);
+  })
+
 app.listen(PORT,()=>console.log("app is started in ",PORT));
 
 
