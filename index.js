@@ -147,6 +147,13 @@ const reciepes=[
     response.send(result);
   })
 
+  app.delete("/recipes/:id",async(request,response)=>{
+    const {id}=request.params
+
+    const result=await client.db("b28wd").collection("recipes").deleteOne({_id:ObjectID(id)});
+    response.send(result);
+  })
+
 app.listen(PORT,()=>console.log("app is started in ",PORT));
 
 
